@@ -1,0 +1,35 @@
+Auto Hand 抓取包 · 检查修复版 · 2026-11-07
+
+来源：F:/学习资料/grb。原工程对照：F:/学习资料/VRProjects。
+面向目标：D:/surgery-vr，Unity 2022.3.54f1c1、Quest 3 控制器、URP 14.0.11。
+本包保留 grb 的 Auto Hand 抓取核心、关节、抓姿、放置点、手部预制体、OpenXR 输入与示例资源。
+未加入原工程中的 VirtualGrasp、SenseGlove、SteamVR、MetaXR 等额外集成；Quest 裸手追踪不在本次分离包范围内。
+
+导入：
+1. 在 surgery-vr 中选择 Assets > Import Package > Custom Package，选择本 unitypackage 并导入。
+2. 当前 surgery-vr 已有必要的 Package Manager 依赖。迁移到其他工程时，需安装 Input System、OpenXR、XR Plugin Management、XR Legacy Input Helpers、URP、TextMeshPro 和 UGUI。
+   本次使用的版本为 Input System 1.11.2、OpenXR 1.13.2、XR Management 4.5.4、Legacy Input Helpers 2.1.11、URP 14.0.11、TMP 3.0.7、UGUI 1.0.0。
+3. Auto Hand 首次导入会按原插件逻辑创建 Grabbing、Grabbable、Hand、HandPlayer 四个层，并设置所需碰撞忽略关系。
+   需要调节物理质量时，打开 Window > Autohand > Setup Window。本包保留作者的 Quest 质量级别 2。
+4. Quest 控制器入口：Assets/AutoHand/Examples/Scenes/OpenXR/Prefabs/OpenXRAutoHandPlayer.prefab。
+   测试场景中仅使用一套玩家 Rig、主相机和 AudioListener；该预制体与现有 QuestRig 的选择/衔接需在接入交互时处理。
+5. 被抓物体需要 Collider、非运动学 Rigidbody、Autohand.Grabbable；固定器械抓姿使用 GrabbablePose / 手部抓姿工具。
+6. Desktop Player 是旧键鼠演示，使用 Unity 旧 Input API；运行它需 Active Input Handling = Both。
+   Quest/OpenXR 控制器入口使用新版 Input System，不需要为此开启旧输入。
+
+本次修复：
+- 从原 VRProjects 补回 robot_Roughness.png、AutoHandEmbelm.png。
+- 补齐 TMP_SDF Shader 依赖的 TMPro_Properties.cginc、TMPro.cginc。
+- 修复 OpenXRHandControllerLink.OnEnable 中重复订阅 Grab 事件的一行代码，与原工程实现对齐。
+- 原工程也缺失的两组可选法线/金属贴图、四段示例碰撞音效及旧 Desktop 烘焙数据，清除其失效引用；保留已存在的其他资源和抓取逻辑。
+- 移除演示场景的 Bakery 烘焙组件和 OpenXR 玩家上附带的 Volumetric Audio 组件，避免无关 FMOD/HDRP/Bakery 依赖阻止导入编译；标准 AudioListener 保留。
+- Auto Hand 示例中使用 Standard 的材质适配到目标工程 URP；TMP 字体材质保持 TMP Shader。
+- 原工程中本来就留空的演示模型材质槽，使用中性 URP 材质补位；未假定或重建已丢失的原始外观。
+- 修复部分演示预制体中已失效的 FBX 内部网格编号，按实际模型中的同名网格或唯一网格重新连接。
+- 补回原插件 LICENSE 与 CREDITS。资源仅用于用户自己的工程迁移，原作者授权条款不变。
+
+检查范围：
+包含资源 GUID/程序集/Shader include 核查、Unity 编辑器编译、预制体与场景加载检查、Android 脚本编译，以及无头显条件下的抓取—保持—释放验证。
+具体实际通过项目以桌面检查结果文件为准。
+未进行 Quest 3 真机跟踪、按钮映射、触觉与帧率测试。导入资源包不会自动把医疗器械连接到抓取系统。
+所有修复均在导出副本进行；原 grb、VRProjects 与 surgery-vr 工程保持原状。

@@ -255,15 +255,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.unity.xr.oculus": {
-      "version": "4.4.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xr.management": "4.4.0"
-      },
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.xr.openxr": {
       "version": "1.13.2",
       "depth": 0,
