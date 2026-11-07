@@ -1,0 +1,53 @@
+术启 · 小手术操作室（S05–S58）
+
+场景：Assets/_Project/Scenes/小手术操作室.unity
+本轮完成环境与静态 UI，承载同一病例从术前准备到离室交接的空间布局。
+本场景沿用学习大厅配色、房间结构和项目现有 QuestRig，不改动大厅、复诊室或共享 Rig 预制体。
+医学流程沿用待审核版本；屏幕内容为模拟病例提示，不包含真实给药剂量或医学结论。
+
+步骤与区域：
+A_ChartTerminal：S05 病例与计划；S57 记录交接。东北侧病历终端。
+B_ProcedureArea：S06–S12 患者核查、摆位；S18–S35 消毒、铺巾、局麻及切除；
+S37–S38 止血准备；S40–S46 关闭；S48–S50 清洁敷料与结束核查；S53–S56 术后照护。
+C_PreparationArea：S13–S16 包装、着装与手卫生；S52 脱手套和手卫生。西侧屏风分出的相连准备区。
+D_InstrumentCart：S17、S39、S47 器械布置与各次清点。位于术者左手侧。
+E_HandoffAndSharps：S24 锐器交接；S36 标本交接；S51 器械废物交接。位于术者右手侧。
+NurseAndSpecimenStation：患者对侧护士占位、外围标本封装台和分类容器。
+F_ExitHandover：S58 离室交接，之后进入复诊室 S59。
+
+G_PlayerStandpoints 中的锚点：
+Spawn_Chart：初始病历观察位。
+Spawn_Preparation：备物/穿戴观察位。
+Spawn_HandHygiene：洗手池观察位。
+Spawn_Operator：床旁术者位，面向患者上背部。
+Spawn_Exit：离室交接位。
+地面标识和锚点已放置，定点传送、淡入淡出和场景跳转尚未接入。
+当前上背部占位块中心距床旁站位约 0.68 米；最终应按使用者身高、臂展和 Quest 3 真机校准。
+
+原工程复用资源（F:/学习资料/VRProjects）：
+SM_OPR_Bed_02：手术床。
+lao-QingHuaJiZhu.fbx：俯卧人体外观，保留完整人体网格，停用附属局部网格，使用本场景中性材质。
+SM_OPR_Surgical_Light_01：灯头；顶部支架为基础体。
+SM_OPR_Table_02 / 03、SM_OPR_Cabinet_01_Full：器械台、交接车、标本站和储物柜。
+SM_OPR_Tray_01、Scalpel/Handle、Thumb_Tissue_Forceps、Forceps、Surgical_Scissors、Needle_Holder：器械外观。
+StitchesNeedle.fbx、Gauze/Gauze_Box、Bottle_Disinfectant/Medicine_01：针具、纱布、包装和瓶体外观。
+SM_OPR_Biohazard_Bin_01_Main/Cap：分类容器外观。
+SM__TVScreen：病历显示屏。
+新增模型和必要依赖已复制到 Assets/_Project/art/VRProjects，保留来源 GUID；仅适配新增材质的 URP 与贴图。
+
+占位与后续替换：
+BackOperationPatch_PrimitivePlaceholder：上背部术区及肿物标记。下设 Incision/Lipoma/Closure/DressingStateAnchor。
+这是几何占位，尚无真实皮肤分层、切开、分离、止血、肿物取出或缝合逻辑。
+LowerBodyCover_StaticPlaceholder：编辑器生成的静态覆盖物网格，无布料模拟。
+Nurse_PrimitivePlaceholder：护士人形，无对话、递送或动画。
+SurgicalSink_PrimitivePlaceholder：洗手池基础体。原 ss-wash.FBX 已复制检查，但直接摆放的几何朝向与尺寸不合适，本版未采用。
+Syringe_PrimitivePlaceholder、SharpsContainer_PrimitivePlaceholder、SpecimenContainer_PrimitivePlaceholder：注射器、锐器盒、标本容器。
+GownPack/GlovePack、ChartCounter、屏风、枕垫、普通废物容器等也是基础体。
+显示的瓶体和容器仅复用外观，标签、内容物、用途及具体医学规则需后续配置和审核。
+最终患者模型需与复诊室统一人物身份、上背部病灶和敷料位置。
+
+全部面板均为静态世界空间 UI；抓取、穿戴、清点、污染判定、医疗操作、评分和跳转尚未接入。
+QuestRig 保留已有跟踪输入，当前场景隐藏控制器模型。未做 Quest 3 真机或完整 Android 构建测试。
+天花板和入口墙仅在 Scene 编辑视图隐藏以便编辑，Game 中仍为完整房间。
+俯视预览图临时隐藏顶灯，便于看到人体与术区，保存的实际场景保留顶灯。
+搭建前场景备份、资源清单、检查报告和渲染图：D:/CGJ/outputs/shuqi_procedure_room

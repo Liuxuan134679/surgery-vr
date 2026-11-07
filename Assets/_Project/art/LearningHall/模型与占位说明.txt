@@ -1,0 +1,28 @@
+术启 VR：学习大厅场景搭建
+
+场景：Assets/_Project/Scenes/学习大厅.unity
+主体：LearningHallRoot
+对应步骤：S01–S04，后续复用 S60–S62。
+
+02_LearningStation：中央训练台、入口/复盘面板、病例预览板。
+B_CalibrationAndSpawn：校准地标、Spawn_Learning 参考站位。
+03_SupportArea：右侧器械柜、回收推车与容器。
+
+旧工程资源已按原 GUID 迁入 Assets/_Project/art/VRProjects。
+保留了桌柜、托盘、刀柄/刀片、镊子和剪刀的静态预制体关系。
+旧材质只在副本中改为 URP Lit；模型贴图导入上限为 1024。
+小型器械在大厅实例中保留最高细节，避免原 LOD 设置使它们在桌面距离消失。
+
+名称带 PrimitivePlaceholder 的对象使用 Unity 基础物体搭建，可在原父对象下更换模型。
+名称带 LayoutPlaceholder 的入口面板目前仅包含可编辑 UI 外观，未连接按钮逻辑。
+器械目前为静态摆放，未接入抓取与步骤判定。
+
+现有 QuestRig 与输入配置保留，未追踪的手柄外观保持隐藏。
+原场景测试物件收纳在 LegacyDiagnostics_Preserved 中并停用；诊断 Probe 沿用原脚本。
+Scene 视图使用剖切显示方便编辑；Game 视图保留完整墙体与天花。
+
+原始场景、预制体与相关配置的备份位于：
+D:/CGJ/outputs/shuqi_learning_hall/backups
+
+已核验：Unity 编译、模型/材质引用、中文显示、场景保存、玩家视角与俯视图。
+Quest 3 真机性能与操作舒适度仍需戴上头显验证。

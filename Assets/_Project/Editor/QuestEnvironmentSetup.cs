@@ -31,7 +31,7 @@ namespace ShuQi.Editor
 {
     public static class QuestEnvironmentSetup
     {
-        public const string ScenePath = "Assets/_Project/Scenes/QuestEnvironment.unity";
+        public const string ScenePath = "Assets/_Project/Scenes/学习大厅.unity";
         const string SettingsRoot = "Assets/_Project/Settings";
         const string PipelinePath = SettingsRoot + "/QuestURP.asset";
         const string ReportRoot = "Builds/Reports";

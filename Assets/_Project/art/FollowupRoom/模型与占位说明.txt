@@ -1,0 +1,32 @@
+术启 · 复诊室（S59）
+
+场景：Assets/_Project/Scenes/复诊室.unity
+用途：从手术结束后跳转至复诊日，承载报告查看、上背部伤口复查和结果沟通，完成后返回学习大厅复盘。
+医学内容为待审核版本。屏幕上的病理报告是教学占位内容，尚未填入诊断结论。
+
+布局与层级：
+FollowupRoomRoot / A_ConsultationDesk_ReportArea：诊桌、医生椅、模拟报告屏幕。
+FollowupRoomRoot / B_BackExaminationArea：患者座凳、患者和上背部敷料占位体、边桌。
+FollowupRoomRoot / C_StorageAndRoomDetails：储物柜和病例标识。
+FollowupRoomRoot / D_PlayerStandpoints：报告观察位与复查观察位，含 Spawn_Followup、Spawn_BackReview 两个锚点。
+FollowupBriefingPanel_LayoutPlaceholder：S59 导览和“查看报告 / 复查伤口 / 返回复盘”静态卡片。
+
+复用模型（原工程 F:/学习资料/VRProjects，已复制并保留来源 GUID）：
+SM__OfficeChair：医生椅。
+SM_OPR_Chair_02：患者座凳，按坐面约 0.47 米布置。
+SM__SmallTable：患者侧边桌。
+SM__TVScreen：报告显示屏。
+SM_OPR_Cabinet_01_Full：复用学习大厅已导入的柜体资源。
+新复制资源位于 Assets/_Project/art/VRProjects。仅对新材质适配 URP，并校正其颜色/法线贴图槽。
+
+需要后续替换的基础体：
+房间结构、诊桌及显示屏底座；Patient_PrimitivePlaceholder（患者整组）；
+PostopPatch_PrimitivePlaceholder 与 WoundReviewMarker（敷料/复查目标）；CareLeaflet_PrimitivePlaceholder（随访说明纸）。
+患者为座姿占位人形，最终应与手术场景保持同一人物和上背部病灶位置。
+
+当前完成环境和静态 UI。报告交互、虚拟护士对话、观察位传送、伤口状态切换、返回大厅与评分尚未接入。
+QuestRig 使用项目现有预制体，保留跟踪输入，当前场景隐藏控制器模型。未做 Quest 3 真机测试。
+天花板和入口墙仅在 Scene 编辑视图隐藏以便俯视编辑，Game 运行中保持完整房间。
+旧默认相机存放在 LegacySceneSetup_Preserved 下并停用。
+
+搭建前的场景备份与实际场景渲染图：D:/CGJ/outputs/shuqi_followup_room
