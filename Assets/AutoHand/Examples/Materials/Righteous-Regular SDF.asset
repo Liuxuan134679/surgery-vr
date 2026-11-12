@@ -144,7 +144,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 31.2
     m_StrikethroughThickness: 2.9628906
     m_TabWidth: 41
-  m_Material: {fileID: -3438387809978036471}
+  material: {fileID: -3438387809978036471}
   m_SourceFontFileGUID: 71b908552670b6b4daeb30b919ab116b
   m_CreationSettings:
     sourceFontFileName: 

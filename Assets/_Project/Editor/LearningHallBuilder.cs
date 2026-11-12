@@ -268,11 +268,13 @@ namespace ShuQi.Editor
             var marker=Group(spawn,"Spawn_Learning");marker.position=new Vector3(0,0,-.65f);
             var rig=scene.GetRootGameObjects().Single(o=>o.name=="QuestRig");
             rig.transform.position=marker.position;rig.transform.rotation=Quaternion.identity;
-            var probe=scene.GetRootGameObjects().SelectMany(o=>o.GetComponentsInChildren<ShuQi.VR.QuestEnvironmentProbe>(true)).Single();
-            probe.transform.SetParent(rig.transform,true);
-            probe.gameObject.SetActive(true);
-            probe.leftController.enabled=false;
-            probe.rightController.enabled=false;
+            var probe=scene.GetRootGameObjects().SelectMany(o=>o.GetComponentsInChildren<ShuQi.VR.QuestEnvironmentProbe>(true)).SingleOrDefault();
+            if(probe) {
+                probe.transform.SetParent(rig.transform,true);
+                probe.gameObject.SetActive(true);
+                probe.leftController.enabled=false;
+                probe.rightController.enabled=false;
+            }
             var camera=rig.GetComponentInChildren<Camera>(true);camera.nearClipPlane=.04f;camera.farClipPlane=30;
 
             RenderSettings.ambientMode=AmbientMode.Flat;

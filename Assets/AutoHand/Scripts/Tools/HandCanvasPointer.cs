@@ -121,7 +121,7 @@ namespace Autohand
 
         protected internal virtual void Preprocess()
         {
-            if(beingDestroyed) return;
+            if(beingDestroyed || !isActiveAndEnabled) return;
 
             UICamera.farClipPlane = raycastLength;
             UICamera.transform.position = transform.position;

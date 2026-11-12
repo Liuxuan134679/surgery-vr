@@ -329,8 +329,8 @@ namespace ShuQi.Editor
                 Require(objects.SelectMany(obj => obj.GetComponents<AudioListener>()).Count() == 1, "Expected one audio listener");
                 Require(objects.SelectMany(obj => obj.GetComponents<TrackedPoseDriver>()).Count() == 3, "Head and both controller pose drivers are required");
                 Require(objects.SelectMany(obj => obj.GetComponents<Renderer>()).All(renderer => renderer.sharedMaterials.All(material => material && material.shader)), "Scene has missing materials/shaders");
-                var probe = objects.SelectMany(obj => obj.GetComponents<QuestEnvironmentProbe>()).Single();
-                Require(probe.statusText && probe.leftController && probe.rightController && probe.leftTestObject && probe.rightTestObject, "Diagnostics references are incomplete");
+                var probe = objects.SelectMany(obj => obj.GetComponents<QuestEnvironmentProbe>()).SingleOrDefault();
+                if(probe) Require(probe.statusText && probe.leftController && probe.rightController && probe.leftTestObject && probe.rightTestObject, "Diagnostics references are incomplete");
             }
             finally
             {
