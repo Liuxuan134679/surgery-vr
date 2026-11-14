@@ -22,6 +22,8 @@ namespace Autohand.Demo{
         void OnDisable() { 
             if (startTeleportAction.action != null) startTeleportAction.action.performed -= StartTeleportAction;
             if (finishTeleportAction.action != null) finishTeleportAction.action.performed -= FinishTeleportAction;
+            if (hand) hand.CancelTeleport();
+            teleporting = false;
         }
 
 

@@ -48,6 +48,16 @@ namespace Autohand.Demo {
             if (stopSqueezeAction.action != null) stopSqueezeAction.action.Enable();
             if (stopSqueezeAction.action != null) stopSqueezeAction.action.performed += StopSqueeze;
 
+            // A release can occur while paused and unsubscribed; reconcile it before accepting another grab.
+            if (grabbing && grabAxis.action != null && grabAxis.action.ReadValue<float>() < 0.15f) {
+                hand.Release();
+                grabbing = false;
+            }
+            if (squeezing && squeezeAxis.action != null && squeezeAxis.action.ReadValue<float>() < 0.15f) {
+                hand.Unsqueeze();
+                squeezing = false;
+            }
+
 
             if(hand.left)
                 role = XRNode.LeftHand;

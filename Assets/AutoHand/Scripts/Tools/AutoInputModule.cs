@@ -95,7 +95,8 @@ namespace Autohand
         public void RemovePointer(HandCanvasPointer pointer)
         {
             int pIndex = pointers.IndexOf(pointer);
-            ProcessRelease(pIndex);
+            if (pIndex < 0) return;
+            CancelPress(pIndex);
             ProcessExit(pIndex);
 
             if (pointers.Contains(pointer))
@@ -141,6 +142,7 @@ namespace Autohand
 
         public void ProcessPress(int index)
         {
+            if (GetData(index) == null) return;
             pointers[index].Preprocess();
             // Hooks in to Unity's event system to process a release
             eventDatas[index].pointerPressRaycast = eventDatas[index].pointerCurrentRaycast;
@@ -154,6 +156,7 @@ namespace Autohand
 
         public void ProcessRelease(int index)
         {
+            if (GetData(index) == null) return;
             pointers[index].Preprocess();
             // Hooks in to Unity's event system to process a press
             GameObject pointerRelease = ExecuteEvents.GetEventHandler<IPointerClickHandler>(eventDatas[index].pointerCurrentRaycast.gameObject);
@@ -175,6 +178,19 @@ namespace Autohand
             ExecuteEvents.Execute(pointerRelease, eventDatas[index], ExecuteEvents.pointerExitHandler);
         }
 
-        public PointerEventData GetData(int index) { return eventDatas[index]; }
+        // Losing tracking or disabling a pointer must cancel a press without clicking it.
+        public void CancelPress(int index)
+        {
+            var data = GetData(index);
+            if (data == null) return;
+            ExecuteEvents.Execute(data.pointerPress, data, ExecuteEvents.pointerUpHandler);
+            ExecuteEvents.Execute(data.pointerDrag, data, ExecuteEvents.endDragHandler);
+            data.pointerPress = null;
+            data.pointerDrag = null;
+            HandlePointerExitAndEnter(data, null);
+            data.pointerCurrentRaycast = new RaycastResult();
+        }
+
+        public PointerEventData GetData(int index) { return eventDatas != null && index >= 0 && index < eventDatas.Length ? eventDatas[index] : null; }
     }
 }

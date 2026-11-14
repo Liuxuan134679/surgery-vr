@@ -104,7 +104,15 @@ namespace Autohand
 
         protected virtual void OnDisable()
         {
-            if(inputModule) inputModule.Instance?.RemovePointer(this);
+            Cancel();
+            if(inputModule) inputModule.RemovePointer(this);
+            hover = false;
+            ShowRay(false);
+        }
+
+        public void Cancel()
+        {
+            if (inputModule) inputModule.CancelPress(pointerIndex);
         }
 
         protected virtual void OnDestroy() {
@@ -147,6 +155,7 @@ namespace Autohand
             if(inputModule) inputModule.ProcessRelease(pointerIndex);
 
             PointerEventData data = inputModule.GetData(pointerIndex);
+            if (data == null) return;
             var selectedObject = data.selectedObject;
             if(selectedObject != null) 
                 StopSelect?.Invoke(data.pointerCurrentRaycast.worldPosition, selectedObject);
@@ -193,6 +202,7 @@ namespace Autohand
         {
 
             PointerEventData data = inputModule.GetData(pointerIndex);
+            if (data == null) { ShowRay(false); return; }
             float targetLength = data.pointerCurrentRaycast.gameObject == null ? raycastLength : data.pointerCurrentRaycast.distance;
 
             if(targetLength > 0) {
@@ -256,7 +266,7 @@ namespace Autohand
 
                 //Handle the line renderer
                 for(int i = 0; i < lineSegements; i++) {
-                    lineRenderer.SetPosition(i, Vector3.Lerp(transform.position, endPosition, i/ lineSegements));
+                    lineRenderer.SetPosition(i, Vector3.Lerp(transform.position, endPosition, i/ (lineSegements-1)));
                 }
             }
 
